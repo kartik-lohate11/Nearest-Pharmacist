@@ -2,6 +2,7 @@ package com.pharmacy.bean;
 
 public class UserData {
    private String name,gmail,address,phone,password,code;
+   private String latitude,longitude;
     public UserData(String name, String gmail, String address, String phone, String password,String code){
         this.name = name;
         this.gmail = gmail;
@@ -9,7 +10,26 @@ public class UserData {
         this.phone = phone;
         this.password = password;
         this.code = code;
+        latitude = null;
+        longitude = null;
     }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
     public void setName(String name){
         this.name = name;
     }

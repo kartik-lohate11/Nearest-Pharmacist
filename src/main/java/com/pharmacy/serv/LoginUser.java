@@ -24,19 +24,72 @@ public class LoginUser extends HttpServlet {
         PrintWriter out = resp.getWriter();
         HttpSession session = req.getSession();
 
-        String gmail = req.getParameter("email");
+        String gmail = req.getParameter("gmail");
         String password = req.getParameter("password");
         System.out.println("realName = "+gmail+" and password = "+password);
 
         UserData isUser = userVerfication(gmail,password);
         if(isUser!=null){
             session.setAttribute("userInfo",isUser);
-            out.println("<html><head></head><body>" +
-                    "<h1>You Logined succesfully welcome  "+isUser.getName()+"</h1></body></html>");
+            resp.sendRedirect("index.jsp");
         }else{
             System.out.println("user not registed");
-            out.println("<html><head></head><body>" +
-                    "<h1>You Not Logined first Create a account..</h1></body></html>");
+            out.println("<!DOCTYPE html>\n" +
+                    "<html lang=\"en\">\n" +
+                    "<head>\n" +
+                    "<meta charset=\"UTF-8\">\n" +
+                    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                    "<title>User Not Found</title>\n" +
+                    "<style>\n" +
+                    "    body {\n" +
+                    "        font-family: Arial, sans-serif;\n" +
+                    "        margin: 0;\n" +
+                    "        padding: 0;\n" +
+                    "        background-color: #f9f9f9;\n" +
+                    "        color: #333;\n" +
+                    "    }\n" +
+                    "    \n" +
+                    "    .container {\n" +
+                    "        max-width: 600px;\n" +
+                    "        margin: 50px auto;\n" +
+                    "        padding: 20px;\n" +
+                    "        background-color: #fff;\n" +
+                    "        border-radius: 10px;\n" +
+                    "        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n" +
+                    "        text-align: center;\n" +
+                    "    }\n" +
+                    "    \n" +
+                    "    h1 {\n" +
+                    "        color: #3c9cdb;\n" +
+                    "        margin-bottom: 20px;\n" +
+                    "    }\n" +
+                    "    \n" +
+                    "    p {\n" +
+                    "        margin-bottom: 20px;\n" +
+                    "    }\n" +
+                    "    \n" +
+                    "    a {\n" +
+                    "        text-decoration: none;\n" +
+                    "        color: #fff;\n" +
+                    "        background-color: #3c9cdb;\n" +
+                    "        padding: 10px 20px;\n" +
+                    "        border-radius: 5px;\n" +
+                    "        transition: background-color 0.3s ease;\n" +
+                    "    }\n" +
+                    "    \n" +
+                    "    a:hover {\n" +
+                    "        background-color: #2975a7;\n" +
+                    "    }\n" +
+                    "</style>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "<div class=\"container\">\n" +
+                    "    <h1>User Not Found</h1>\n" +
+                    "    <p>The email or password you entered is incorrect. Please check your credentials and try again.</p>\n" +
+                    "    <a href=\"Login.html\">Back to Login Page</a>\n" +
+                    "</div>\n" +
+                    "</body>\n" +
+                    "</html>\n");
         }
      }
      public UserData userVerfication(String gmail,String password){

@@ -52,7 +52,7 @@ public class UpdateForgetPassword extends HttpServlet {
             int isUpdate = preparedStatement.executeUpdate();
             if(isUpdate>0){
                 change = true;
-                System.out.println("user data is updateed");
+                System.out.println("user data is updated");
             }else{
                 System.out.println("data not updated");
             }

@@ -1,25 +1,21 @@
 package com.pharmacy.bean;
 
-import java.util.ArrayList;
-
 public class MedicalStoreData {
-    private String name,address,phoneNo,longitude,latitude,about;
-    private ArrayList<String> medicines = new ArrayList<>();
+    private String name,address,phoneNo,longitude,latitude,about,presentStatus;
+    private long distance,duration;
+    private int storeId;
 
-    MedicalStoreData(String name,String address,String phoneNo,String latitude,String longitude){
+    public MedicalStoreData(String name, String address, String phoneNo, String latitude, String longitude, String about){
         this.name = name;
         this.address = address;
         this.phoneNo = phoneNo;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    public ArrayList<String> getMedicines() {
-        return medicines;
-    }
-
-    public void setMedicines(ArrayList<String> medicines) {
-        this.medicines = medicines;
+        this.about = about;
+        distance = 0;
+        duration = 0;
+        presentStatus = null;
+        storeId = 0;
     }
 
     public String getName() {
@@ -65,5 +61,37 @@ public class MedicalStoreData {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public long getDistance() {
+        return distance;
+    }
+
+    public void setDistance(long distance) {
+        this.distance = distance;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public String getPresentStatus() {
+        return presentStatus;
+    }
+
+    public void setPresentStatus(String presentStatus) {
+        this.presentStatus = presentStatus;
+    }
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
     }
 }

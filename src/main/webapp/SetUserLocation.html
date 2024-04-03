@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Your Location</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: #112739;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        select {
+            padding: 8px;
+            font-size: 1em;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus {
+            border-color: #03d0f5;
+        }
+
+        .submit-btn {
+            background-color: #03d0f5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #112739;
+        }
+
+        .note {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Set Your Location</h1>
+    <form action="UserLocation" method="post">
+        <div>
+            <label for="state">Select State:</label><br>
+            <select id="state" name="state">
+                <option value="madhya pradesh">Madhya Pradesh</option>
+                <option value="delhi">Delhi</option>
+                <option value="maharashtra">Maharashtra</option>
+            </select>
+        </div>
+        <div>
+            <label for="city">Select City:</label><br>
+            <select id="city" name="city">
+                <option value="bhopal">Bhopal</option>
+                <option value="indor">Indor</option>
+                <option value="ujjain">Ujjain</option>
+                <!-- Add more cities as needed -->
+            </select>
+        </div>
+        <input type="text" name="latitude" id="ans1" hidden>
+        <input type="text" name="longitude" id="ans2" hidden>
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+    <div class="location-info">
+        <h2>Automatic Latitude and Longitude Detection</h2>
+        <p>We automatically detect your latitude and longitude based on your device's location.</p>
+        <p>First You Should Verify Your Location..</p>
+        <button type="submit" id="verify" class="submit-btn" onclick="getUserLocation()" style="display:inline-block;"></button>
+        <p id="txt" style="display:inline-block;"></p>
+    </div>
+</div>
+<script>
+    let verify = document.getElementById("verify");
+    verify.innerHTML = "Verify";
+    function getUserLocation() {
+        // Check if Geolocation is supported by the browser
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        // Extract latitude and longitude from the position object
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        alert("Latitude: " + latitude + "\nLongitude: " + longitude);
+        let element1 = document.getElementById("ans1");
+        let element2 = document.getElementById("ans2");
+        element1.value = latitude;
+        element2.value = longitude;
+        let verify = document.getElementById("verify");
+        verify.innerHTML = "Verifed";
+        let txt = document.getElementById("txt");
+        txt.innerHTML = "Now You can Sumbit";
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+
+</script>
+</body>
+</html>

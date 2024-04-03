@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Verification OTP</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #otp-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="text"] {
+            text-align: center;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .instructions {
+            font-size: 14px;
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 80px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="otp-container">
+    <img src="admin_logo.png" alt="Admin Logo" class="logo">
+    <h2>Admin Verification OTP</h2>
+    <p class="instructions">Please enter the 6-digit OTP sent to your registered email.</p>
+    <form action="StoreAdminMedicalData" method="post" onsubmit="return validateOTP()">
+        <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
+        <span class="error" id="otp-error"></span>
+        <input type="submit" value="Verify OTP">
+    </form>
+</div>
+
+<script>
+    function setError(id, message) {
+        document.getElementById(id + "-error").textContent = message;
+    }
+
+    function clearValidation() {
+        var errorElements = document.getElementsByClassName("error");
+        for (var i = 0; i < errorElements.length; i++) {
+            errorElements[i].textContent = "";
+        }
+    }
+
+    function validateOTP() {
+        clearValidation();
+        var verified = true;
+
+        var otp = document.getElementById("otp").value;
+
+        // OTP validation
+        if (otp.length !== 6 || isNaN(otp)) {
+            setError("otp", "Enter a valid 6-digit OTP");
+            verified = false;
+        }
+
+        return verified;
+    }
+</script>
+</body>
+</html>

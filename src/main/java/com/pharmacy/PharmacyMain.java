@@ -1,8 +1,11 @@
 package com.pharmacy;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import com.pharmacy.Admin.AdminChanges;
+import com.pharmacy.bean.MedicalStoreData;
+import com.pharmacy.bean.MedicanData;
+
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class PharmacyMain {
@@ -15,57 +18,95 @@ public class PharmacyMain {
 
     public static void main(String[] args) {
 
-//        User user = new User();
-//        String from = "kartiklohte1112@gmail.com";
-//        String to = "kartiklohteofficial@gmail.com";
-//        String sub = "Sending Mail Verify This !";
-//        String text = "i am kartik lohate your OTP is ";
-//
-//        String otp = generateOTP();
-//        System.out.print("Otp = "+otp);
-//        text+=otp;
-//
-//       // System.out.println(text);
-//
-//        boolean verified = user.sendMail(to,from,sub,text);
-//
-//        if(verified) {
-//            System.out.print("Email Send SuccesFully..");
-//        }else {
-//            System.out.print("Some Error Verifiy This..");
-//        }
-
+//        ApiDataGet temWork = new ApiDataGet();
+//        temWork.SolveApi();
+        MedicanData medicanData = new MedicanData();
+//        ArrayList<MedicalStoreData> arrayList = new ArrayList<>();
+//        String medican = "paracetamol";
+//        arrayList = getRequiredMedicalStore(medican);
         System.out.println(generateOTP());
+//        System.out.println("Id = "+medicanData.getMedicalId("Ciprofloxacin"));
+        AdminChanges adminChanges = new AdminChanges();
+        System.out.println(" the = "+adminChanges.verifyMedican("paracetamol"));
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/temProjectWork", "root", "root");
-            String qur = "insert into UserDatas(Username,Gmail,Password,PhoneNo,address) values(?,?,?,?,?)";
-            String stqur = "select Username,Password from UserDatas";
 
-//            String name="kartik lohate",gmail="kartik2gmail.com",password = "12345678",phone = "9988776655",address = "bhopal787";
-//            PreparedStatement preparedStatement = con.prepareStatement(qur);
-//            preparedStatement.setString(1,name);
-//            preparedStatement.setString(2, gmail);
-//            preparedStatement.setString(3,password);
-//            preparedStatement.setString(4,phone);
-//            preparedStatement.setString(5,address);
+
+
+//            while (resultSet.next()) {
+//              String name = resultSet.getString(2);
+//              String gmail = resultSet.getString(3);
+//              String address = resultSet.getString(4);
+//              String phone = resultSet.getString(5);
+//              String longitude = resultSet.getString(6);
+//              String latitude = resultSet.getString(7);
+//              String about = resultSet.getString(8);
 //
-//            preparedStatement.executeUpdate();
-
-//            Statement statement = con.createStatement();
-//            ResultSet res = statement.executeQuery(stqur);
-//            while ((res.next())){
-//                System.out.println("name = "+res.getString(1)+" and password = "+res.getString(2));
+//              System.out.println("name = "+name+" and long = "+longitude+" and lat = "+longitude);
 //            }
-            Solve();
 
-//            System.out.println("data Inserted");
-            con.close();
+    }
+
+    private static ArrayList<MedicalStoreData> getRequiredMedicalStore(String medican) {
+        ArrayList<MedicalStoreData> arrayList = new ArrayList<>();
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/temProjectWork", "root", "root");
+
+                String qur = "select * from MedicalStore join store_medicine on store_medicine.store_id = MedicalStore.userId join MedicanInfo on MedicanInfo.id=store_medicine.medicine_id where MedicanInfo.name=?";
+                PreparedStatement preparedStatement = con.prepareStatement(qur);
+                preparedStatement.setString(1,medican);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    String name = resultSet.getString(2);
+                    String mail = resultSet.getString(3);
+                    String address = resultSet.getString(4);
+                    String phone = resultSet.getString(5);
+                    String lat = resultSet.getString(6),longt = resultSet.getString(7);
+                    String about = resultSet.getString(8);
+
+                    MedicalStoreData medicalStoreData = new MedicalStoreData(name,address,phone,lat,longt,about);
+                    arrayList.add(medicalStoreData);
+                }
+
+                con.close();
         }catch (Exception e){
             e.printStackTrace();
         }
+        return arrayList;
     }
+
+    public static ArrayList<MedicalStoreData> medicalStoreData() {
+        System.out.println("get Medical Store Data");
+        ArrayList<MedicalStoreData> arrayList = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/temProjectWork", "root", "root");
+
+            String qur = "select * from MedicalStore";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(qur);
+            while (resultSet.next()){
+                String name = resultSet.getString(2);
+                String mail = resultSet.getString(3);
+                String address = resultSet.getString(4);
+                String phone = resultSet.getString(5);
+                String lat = resultSet.getString(6),longt = resultSet.getString(7);
+                String about = resultSet.getString(8);
+
+                MedicalStoreData medicalStoreData = new MedicalStoreData(name,address,phone,lat,longt,about);
+                arrayList.add(medicalStoreData);
+            }
+            for(MedicalStoreData medicalStoreData:arrayList){
+                System.out.println("name = "+medicalStoreData.getName());
+            }
+            System.out.println("data Fatched");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+          return arrayList;
+    }
+
     public static void Solve(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
