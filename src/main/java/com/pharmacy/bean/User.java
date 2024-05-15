@@ -11,8 +11,8 @@ public class User {
     public boolean sendMail(String to, String from, String sub, String text) {
 
         boolean flag = false;
-        final String user = "kartiklohte1112";
-        final String password = "qqtg vqyr yjvo plei";
+        final String user = "Enter Your Mail id";
+        final String password = "Enter Your Password";
 
         Properties pr = new Properties();
         pr.put("mail.smtp.auth", true);
