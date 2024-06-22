@@ -1,28 +1,33 @@
-Pharmease
+**Pharmease**
+
 Pharmease is a web application designed to help users find the nearest pharmacies that have the medications they need. It also provides the total time and distance between the user and the selected pharmacy using the Java Map API by Mapple. The application includes robust user and admin authentication via OTP sent to Gmail and ensures that all user details are validated properly.
 
-Features
+**Features**
 Find Nearest Pharmacies
 
 Locate nearby pharmacies based on the user's current location.
 Search for pharmacies that stock specific medications.
-Distance and Time Calculation
+
+**Distance and Time Calculation**
 
 Calculate the total time and distance between the user and the selected pharmacy using Mapple's Java Map API.
-Pharmacy Information
 
+**Pharmacy Information
+**
 Provide detailed information about each pharmacy, including address, contact details, and available medications.
-User and Admin Authentication
 
+**User and Admin Authentication
+**
 Secure login and registration process with OTP verification sent to the user's Gmail.
 Admin panel for managing pharmacy data and user details.
 Technologies Used
 Frontend: HTML, CSS, JavaScript
-Backend: Java, Spring Boot
+Backend: Java Servlet and Jsp
 Database: MySQL
 Map API: Mapple Java Map API
 Email Service: JavaMail API for sending OTP
-Installation
+
+**Installation**
 Clone the repository: Obtain the project files from the repository.
 Navigate to the project directory: Move to the directory where the project files are located.
 Set up the database:
