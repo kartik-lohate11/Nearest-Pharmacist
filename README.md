@@ -62,7 +62,5 @@ Create a new branch: Make your changes in a new branch.
 Make your changes and commit them: Ensure your changes are committed with a descriptive message.
 Push to the branch: Upload your changes to your repository.
 Create a pull request: Submit your changes for review.
-License
-This project is licensed under the MIT License. See the license file for more details.
 
 Thank you for using Pharmease! We hope it helps you find the medications you need quickly and easily.
